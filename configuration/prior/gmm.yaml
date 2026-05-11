@@ -1,0 +1,11 @@
+gmm:
+    max_feature_dim: 100    # the dimension of data
+    max_model_dim: 100   # keep it the same as max_feature_dim
+    max_num_cluster: 5   # complexity parameter
+    max_mean: 5
+    max_var: 5
+    inflate_full: False
+    diversity: 5  # for each dim in [2, max_feature_dim], we generate 'diversity' number of them
+    percentile: 0.9
+    data_dir: 'syn_data/INLA_GMM'
+    delta: 0.05 # Phuong added it

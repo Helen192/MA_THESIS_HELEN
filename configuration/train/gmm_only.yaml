@@ -1,0 +1,22 @@
+seq_len: 5000    # the number of data points in one training dataset  
+hyperparameters: {'ignore_index': -33, 'mode': 'random', 'num_test_x': 1}
+device: 'cuda:0'
+batch_size: 8    # smaller -> quicker
+epochs: 200
+lr: 0.001
+steps_per_epoch: 1000
+emsize: 256   # number of nerons (nodes) in the output layer
+nhead: 4   # 
+nhid: 512  # number of nodes in hidden layers
+nlayer: 4    # number of hidden layers
+num_R: 500  # null (using self-attention)
+reuse_data_every_n: 100
+gen_one_train_one: False # True
+resume_from_ckpt: False  # True
+apply_linear_transform: True  # False
+num_device: 1
+seed: 0
+model_dir: 'ckpt'
+extra_heading: ''
+num_workers: 32  # Helen
+data_method: 'GMM' # Helen : or 'SGMM'

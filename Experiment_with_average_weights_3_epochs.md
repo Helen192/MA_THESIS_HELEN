@@ -1,0 +1,31 @@
+TEST with the average of the last 3 epochs
+dataSGMM.context5000.feat70.R500.inf-fullTrue.LTFalse.gen1tr1True.reuse100.E40.step1000.bs6.lr0.001.emb256.hdim512.nhead2.nlayer6.ndevice1.numclusters70/
+# 3. On 20.03: Experiment with new code of generating validation data: **inflate_full=True, delta=0.005, max_feature_dim=70, max_model_dim=70, prior.gmm.max_num_cluster=70, EPOCHS=40, BATCH_SIZE=6, nlayer=6, nhead=2, lr=0.001
+
+- **generate validation data**: `CUDA_VISIBLE_DEVICES=1 nice -n 10 python3 data_prior/simon_generator.py train.apply_linear_transform=False train.gen_one_train_one=True prior.gmm.max_feature_dim=70 prior.gmm.max_model_dim=70 prior.gmm.max_num_cluster=70 prior.gmm.inflate_full=True prior.gmm.delta=0.005 train.seed=0 train.epochs=40 train.batch_size=6 train.nlayer=6 train.nhead=2 train.num_R=500 train.lr=0.001`
+
+- **pretrain**: `CUDA_VISIBLE_DEVICES=1 nice -n 10 python3 helen_weights_pretrain_parallel.py train.apply_linear_transform=False train.gen_one_train_one=True prior.gmm.max_feature_dim=70 prior.gmm.max_model_dim=70 prior.gmm.max_num_cluster=70 prior.gmm.inflate_full=True prior.gmm.delta=0.005 train.seed=0 train.num_R=500 train.epochs=40 train.batch_size=6 train.data_method='SGMM' train.nlayer=6 train.nhead=2 train.lr=0.001`    --> This code is to run on screen: max_dim_100 
+
+- **test_with_best_model: zero-shot outlier detection**: `CUDA_VISIBLE_DEVICES=1 nice -n 10 python3 zero_shot_on_adbench.py train.apply_linear_transform=False train.gen_one_train_one=True prior.gmm.max_feature_dim=70 prior.gmm.max_model_dim=70 prior.gmm.max_num_cluster=70 prior.gmm.inflate_full=True prior.gmm.delta=0.005 train.seed=0 train.num_R=500 train.epochs=40 train.batch_size=6 train.nlayer=6 train.nhead=2 train.data_method='SGMM' train.lr=0.001 test.seed=0 test.preprocess_transform='quantile'`  --> This code was ran on screen: max_dim_100
+
+- **test_with_average_weights_3_last_epochs: zero-shot outlier detection**: `CUDA_VISIBLE_DEVICES=1 nice -n 10 python3 helen_weights_zero_shot_on_adbench.py train.apply_linear_transform=False train.gen_one_train_one=True prior.gmm.max_feature_dim=70 prior.gmm.max_model_dim=70 prior.gmm.max_num_cluster=70 prior.gmm.inflate_full=True prior.gmm.delta=0.005 train.seed=0 train.num_R=500 train.epochs=40 train.batch_size=6 train.nlayer=6 train.nhead=2 train.data_method='SGMM' train.lr=0.001 test.seed=0 test.preprocess_transform='quantile'`  --> This code was ran on screen: max_dim_100
+
+- **test_with_last_epochs: zero-shot outlier detection**: `CUDA_VISIBLE_DEVICES=1 nice -n 10 python3 helen_weights_last_epoch_zero_shot_on_adbench.py train.apply_linear_transform=False train.gen_one_train_one=True prior.gmm.max_feature_dim=70 prior.gmm.max_model_dim=70 prior.gmm.max_num_cluster=70 prior.gmm.inflate_full=True prior.gmm.delta=0.005 train.seed=0 train.num_R=500 train.epochs=40 train.batch_size=6 train.nlayer=6 train.nhead=2 train.data_method='SGMM' train.lr=0.001 test.seed=0 test.preprocess_transform='quantile'`  --> This code was ran on screen: max_dim_100
+
+
+
+TEST WITH BEST MODEL, but double Epochs
+dataSGMM.context5000.feat70.R500.inf-fullTrue.LTFalse.gen1tr1True.reuse100.E100.step1000.bs6.lr0.001.emb256.hdim512.nhead2.nlayer6.ndevice1.numclusters70
+
+
+# 3. On 20.03: Experiment with new code of generating validation data: **inflate_full=True, delta=0.005, max_feature_dim=70, max_model_dim=70, prior.gmm.max_num_cluster=70, EPOCHS=100, BATCH_SIZE=6, nlayer=6, nhead=2, lr=0.001
+
+- **generate validation data**: `CUDA_VISIBLE_DEVICES=1 nice -n 10 python3 data_prior/simon_generator.py train.apply_linear_transform=False train.gen_one_train_one=True prior.gmm.max_feature_dim=70 prior.gmm.max_model_dim=70 prior.gmm.max_num_cluster=70 prior.gmm.inflate_full=True prior.gmm.delta=0.005 train.seed=0 train.epochs=100 train.batch_size=6 train.nlayer=6 train.nhead=2 train.num_R=500 train.lr=0.001`
+
+- **pretrain**: `CUDA_VISIBLE_DEVICES=1 nice -n 10 python3 helen_weights_pretrain_parallel.py train.apply_linear_transform=False train.gen_one_train_one=True prior.gmm.max_feature_dim=70 prior.gmm.max_model_dim=70 prior.gmm.max_num_cluster=70 prior.gmm.inflate_full=True prior.gmm.delta=0.005 train.seed=0 train.num_R=500 train.epochs=100 train.batch_size=6 train.data_method='SGMM' train.nlayer=6 train.nhead=2 train.lr=0.001`    --> This code is to run on screen: max_dim_100 
+
+- **test_with_best_model: zero-shot outlier detection**: `CUDA_VISIBLE_DEVICES=1 nice -n 10 python3 zero_shot_on_adbench.py train.apply_linear_transform=False train.gen_one_train_one=True prior.gmm.max_feature_dim=70 prior.gmm.max_model_dim=70 prior.gmm.max_num_cluster=70 prior.gmm.inflate_full=True prior.gmm.delta=0.005 train.seed=0 train.num_R=500 train.epochs=100 train.batch_size=6 train.nlayer=6 train.nhead=2 train.data_method='SGMM' train.lr=0.001 test.seed=0 test.preprocess_transform='quantile'`  --> This code was ran on screen: max_dim_100
+
+- **test_with_average_weights_3_last_epochs: zero-shot outlier detection**: `CUDA_VISIBLE_DEVICES=1 nice -n 10 python3 helen_weights_zero_shot_on_adbench.py train.apply_linear_transform=False train.gen_one_train_one=True prior.gmm.max_feature_dim=70 prior.gmm.max_model_dim=70 prior.gmm.max_num_cluster=70 prior.gmm.inflate_full=True prior.gmm.delta=0.005 train.seed=0 train.num_R=500 train.epochs=100 train.batch_size=6 train.nlayer=6 train.nhead=2 train.data_method='SGMM' train.lr=0.001 test.seed=0 test.preprocess_transform='quantile'`  --> This code was ran on screen: max_dim_100
+
+- **test_with_last_epochs: zero-shot outlier detection**: `CUDA_VISIBLE_DEVICES=1 nice -n 10 python3 helen_weights_last_epoch_zero_shot_on_adbench.py train.apply_linear_transform=False train.gen_one_train_one=True prior.gmm.max_feature_dim=70 prior.gmm.max_model_dim=70 prior.gmm.max_num_cluster=70 prior.gmm.inflate_full=True prior.gmm.delta=0.005 train.seed=0 train.num_R=500 train.epochs=100 train.batch_size=6 train.nlayer=6 train.nhead=2 train.data_method='SGMM' train.lr=0.001 test.seed=0 test.preprocess_transform='quantile'`  --> This code was ran on screen: max_dim_100
